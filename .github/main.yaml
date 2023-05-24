@@ -1,0 +1,36 @@
+name: Main
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [ opened, synchronize ]
+
+jobs:
+  test:
+    name: Run Tests
+    uses: ./.github/workflows/test.yaml
+    with:
+      job: test
+    secrets: inherit
+
+  build:
+    name: Build Container
+    uses: ./.github/workflows/build.yaml
+    needs:
+      - test
+    with:
+      job: build
+    secrets: inherit
+
+  deploy:
+    name: Deploy chart
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/deploy.yaml
+    needs:
+      - test
+      - build
+    with:
+      job: deploy
+    secrets: inherit
