@@ -1,0 +1,6 @@
+apiVersion: v2
+name: genre-explorer
+description: A helm chart for the genre explorer
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

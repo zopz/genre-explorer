@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "genre-explorer.fullname" }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels: {{- .Values.commonLabels| nindent 4 }}
+  annotations: {{- .Values.commonAnnotations  | nindent 4 }}
+data:
+  PREVIOUSLY_USED_GENRES: ""
